@@ -54,66 +54,66 @@ def call_flask_api(endpoint, data):
         return {"error": str(e)}
 
 # --- Inject Custom CSS (Permanent Dark Mode & Chat Bubbles) ---
-st.markdown(
-    """
-    <style>
-    /* Overall App Styling (Dark Mode) */
-    .stApp {
-        background-color: #1a1a1a; /* Main background */
-        color: #ffffff; /* Default text color */
-    }
+# st.markdown(
+#     """
+#     <style>
+#     /* Overall App Styling (Dark Mode) */
+#     .stApp {
+#         background-color: #1a1a1a; /* Main background */
+#         color: #ffffff; /* Default text color */
+#     }
 
-    /* Input fields and select boxes */
-    .stTextInput>div>div>input, .stTextArea>div>div>textarea,
-    .stSelectbox>div>div>div { /* Target selectbox display area */
-        background-color: #333333; /* Darker grey for inputs/selects */
-        color: #ffffff; /* White text in inputs */
-        border: 1px solid #555555;
-    }
-    .stSelectbox>div>div>div:focus { /* Focus state for selectbox */
-        border-color: #007bff;
-        box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
-    }
-    .stSelectbox div[role="listbox"] { /* Dropdown list for selectbox */
-        background-color: #333333;
-        border: 1px solid #555555;
-    }
-    .stSelectbox div[role="option"] { /* Options in selectbox dropdown */
-        color: #ffffff;
-    }
-    .stSelectbox div[role="option"]:hover { /* Hover on selectbox options */
-        background-color: #555555;
-    }
+#     /* Input fields and select boxes */
+#     .stTextInput>div>div>input, .stTextArea>div>div>textarea,
+#     .stSelectbox>div>div>div { /* Target selectbox display area */
+#         background-color: #333333; /* Darker grey for inputs/selects */
+#         color: #ffffff; /* White text in inputs */
+#         border: 1px solid #555555;
+#     }
+#     .stSelectbox>div>div>div:focus { /* Focus state for selectbox */
+#         border-color: #007bff;
+#         box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
+#     }
+#     .stSelectbox div[role="listbox"] { /* Dropdown list for selectbox */
+#         background-color: #333333;
+#         border: 1px solid #555555;
+#     }
+#     .stSelectbox div[role="option"] { /* Options in selectbox dropdown */
+#         color: #ffffff;
+#     }
+#     .stSelectbox div[role="option"]:hover { /* Hover on selectbox options */
+#         background-color: #555555;
+#     }
 
-    /* Labels and general text */
-    h1, h2, h3, h4, h5, h6, label, p, a, li, ul, .stMarkdown, .stText, .stAlert, .stButton, .stProgress, .stSpinner {
-        color: #ffffff;
-    }
+#     /* Labels and general text */
+#     h1, h2, h3, h4, h5, h6, label, p, a, li, ul, .stMarkdown, .stText, .stAlert, .stButton, .stProgress, .stSpinner {
+#         color: #ffffff;
+#     }
 
-    /* Chat message bubbles */
-    .stChatMessage {
-        background-color: #333333; /* Default message bubble background */
-        color: #ffffff;
-        border-radius: 10px;
-        padding: 10px 15px;
-        margin-bottom: 10px;
-        width: fit-content; /* Make bubble fit content */
-        max-width: 80%; /* Limit bubble width */
-    }
-    .stChatMessage:nth-child(odd) { /* User messages (first message, third, etc.) */
-        background-color: #444444; /* Slightly different for user message */
-        margin-left: auto; /* Push user message to the right */
-        margin-right: 0;
-    }
-    .stChatMessage:nth-child(even) { /* Assistant messages (second message, fourth, etc.) */
-        background-color: #333333; /* Keep assistant message as original */
-        margin-right: auto; /* Push assistant message to the left */
-        margin-left: 0;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+#     /* Chat message bubbles */
+#     .stChatMessage {
+#         background-color: #333333; /* Default message bubble background */
+#         color: #ffffff;
+#         border-radius: 10px;
+#         padding: 10px 15px;
+#         margin-bottom: 10px;
+#         width: fit-content; /* Make bubble fit content */
+#         max-width: 80%; /* Limit bubble width */
+#     }
+#     .stChatMessage:nth-child(odd) { /* User messages (first message, third, etc.) */
+#         background-color: #444444; /* Slightly different for user message */
+#         margin-left: auto; /* Push user message to the right */
+#         margin-right: 0;
+#     }
+#     .stChatMessage:nth-child(even) { /* Assistant messages (second message, fourth, etc.) */
+#         background-color: #333333; /* Keep assistant message as original */
+#         margin-right: auto; /* Push assistant message to the left */
+#         margin-left: 0;
+#     }
+#     </style>
+#     """,
+#     unsafe_allow_html=True
+# )
 
 # Define logo path here, so it can be used in both authenticated and unauthenticated states
 LOGO_PATH = "FunnX.Ai.jpg" # Using the path you provided. Ensure this is correct.
