@@ -9,7 +9,7 @@ load_dotenv()
 # Ensure this URL is correct. It should be the same as your Flask app's default.
 
 
-# FLASK_API_URL = "http://127.0.0.1:5000"
+FLASK_API_URL = "https://funnx-ai-backend.onrender.com"
 
 
 # Set Streamlit page configuration
