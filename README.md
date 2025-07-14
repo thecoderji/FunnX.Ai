@@ -14,9 +14,9 @@ FunnX.Ai is a full-stack AI chat application designed to provide intelligent con
 
 Experience FunnX.Ai live on Render:
 
-- **FunnX.Ai Frontend (Streamlit App):** [YOUR_FRONTEND_RENDER_URL_HERE]
+- **FunnX.Ai Frontend (Streamlit App):** [https://funnx-ai.onrender.com]
   - _Example: `https://funnx-ai-frontend.onrender.com`_
-- **FunnX.Ai Backend (Flask API):** [YOUR_BACKEND_RENDER_URL_HERE]
+- **FunnX.Ai Backend (Flask API):** [https://funnx-ai-backend.onrender.com]
   - _Example: `https://funnx-ai-backend.onrender.com`_
 
 **Important Note for Live Demo Users:**
