@@ -41,11 +41,17 @@ def home():
     """Simple health check endpoint."""
     return "FunnX.Ai Backend is running!"
 
-# --- Removed the /signup endpoint completely ---
-# @app.route("/signup", methods=["POST"])
-# def signup():
-#     # This endpoint is no longer needed or defined
-#     pass
+# --- NEW: /ping endpoint for frontend to wake up backend ---
+@app.route("/ping", methods=["GET"])
+def ping():
+    """
+    A simple endpoint to confirm the backend is alive.
+    Used by the frontend to wake up the backend.
+    """
+    print("Received ping request. Backend is active.")
+    return jsonify({"status": "active", "message": "Backend is alive!"}), 200
+# --- END NEW /ping endpoint ---
+
 
 @app.route("/login", methods=["POST"])
 def login():

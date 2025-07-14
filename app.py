@@ -3,13 +3,30 @@ import streamlit as st
 import requests
 import os
 from dotenv import load_dotenv
+import time # Added for sleep
 
 # Load environment variables
 load_dotenv()
 # Ensure this URL is correct. It should be the same as your Flask app's default.
 
+FLASK_API_URL = "https://funnx-ai-backend.onrender.com" # Your backend URL
 
-FLASK_API_URL = "https://funnx-ai-backend.onrender.com"
+# --- NEW: Function to ping backend and activate it ---
+def ping_backend():
+    ping_url = f"{FLASK_API_URL}/ping"
+    try:
+        # print(f"Pinging backend at: {ping_url}") # Uncomment for local debugging
+        response = requests.get(ping_url, timeout=5) # Short timeout
+        if response.status_code == 200:
+            print("Backend ping successful!")
+            st.session_state.backend_active = True
+        else:
+            print(f"Backend ping failed with status: {response.status_code}")
+    except requests.exceptions.Timeout:
+        print("Backend ping timed out. It might be waking up.")
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred during backend ping: {e}")
+# --- END NEW FUNCTION ---
 
 
 # Set Streamlit page configuration
@@ -24,6 +41,18 @@ if "page" not in st.session_state:
     st.session_state["page"] = "home" # Default page if not authenticated
 if "messages" not in st.session_state: # Initialize chat messages for the session
     st.session_state["messages"] = []
+if 'backend_active' not in st.session_state: # NEW: Flag to track backend activation
+    st.session_state.backend_active = False
+
+
+# --- NEW: Backend Wake-up Logic on app load ---
+if not st.session_state.backend_active:
+    st.info("Warming up the AI brain... This might take a moment if it's the first visit after inactivity.")
+    ping_backend()
+    time.sleep(1) # Give the ping a moment to be sent
+    # st.rerun() # You could uncomment this if you want an immediate re-run to update UI, but might cause flickering.
+# --- END NEW WAKE-UP LOGIC ---
+
 
 # --- Helper Function: Call Flask API ---
 def call_flask_api(endpoint, data):
@@ -225,9 +254,21 @@ else:
             if selected_model_option == "Try Both":
                 st.info("Try Both mode displays responses from Gemini and DeepSeek simultaneously.")
 
-        user_input = st.chat_input("Type your message here...")
+        # --- OLD: user_input = st.chat_input("Type your message here...")
+        # --- NEW: Replaced st.chat_input with st.text_input and a button for mobile compatibility ---
+        input_col, button_col = st.columns([0.85, 0.15]) # Adjust ratio as needed
 
-        if user_input:
+        with input_col:
+            user_input = st.text_input("Type your message here...", key="user_message_input", label_visibility="collapsed")
+
+        with button_col:
+            st.write("") # Adjust vertical alignment
+            st.write("") # Add another one if needed
+            send_button = st.button("Send", use_container_width=True)
+
+        # --- Now, modify the condition that triggers the AI response: ---
+        # It should be 'if user_input and send_button:'
+        if user_input and send_button: # Only process if user typed and clicked send
             st.session_state["messages"].append({"role": "user", "content": user_input})
             with st.chat_message("user"):
                 st.markdown(user_input)
@@ -287,7 +328,8 @@ else:
                     else:
                         st.error("Failed to get AI response from backend.")
                         st.session_state["messages"].append({"role": "assistant", "content": "Error: Could not get response."})
-            st.rerun()
+            st.rerun() # This will clear the input box and re-render the chat
+        # --- END NEW TRIGGER CONDITION ---
 
 if __name__ == "__main__":
     pass
